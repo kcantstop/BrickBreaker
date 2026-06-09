@@ -32,12 +32,12 @@ public class PaddleBehavior : MonoBehaviour
         
         if (transform.position.x <= BoundaryL)
         {
-            movement.x = Mathf.Max(movement.x, 0);;
+            movement.x = Mathf.Max(movement.x, 0);
         }
 
         if (transform.position.x >= BoundaryR)
         {
-            movement.x = Mathf.Min(movement.x, 0);;
+            movement.x = Mathf.Min(movement.x, 0);
         }
 
         movement *= Time.deltaTime;
