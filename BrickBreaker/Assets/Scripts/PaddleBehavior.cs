@@ -2,46 +2,33 @@ using UnityEngine;
 
 public class PaddleBehavior : MonoBehaviour
 {
-    public float BoundaryL = -5.3f;
-    public float BoundaryR = 5.3f;
-    public float Speed = 5.0f;
+    private float _direction = 0.0f;
+    [SerializeField] private float _speed = 5.0f;
+    [SerializeField] private KeyCode _leftDirection = KeyCode.LeftArrow;
+    [SerializeField] private KeyCode _rightDirection = KeyCode.RightArrow;
 
-    public KeyCode LeftDirection = KeyCode.LeftArrow;
+    private Rigidbody2D _rb;
 
-    public KeyCode RightDirection = KeyCode.RightArrow;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        _rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
+    void FixedUpdate()
+    {
+        _rb.linearVelocityX = _direction * _speed;
+    }
+
     void Update()
     {
-        Vector3 movement = new Vector3(0.0f, 0.0f, 0.0f);
-
-        if (Input.GetKey(LeftDirection))
+        _direction = 0.0f;
+        if (Input.GetKey(_leftDirection))
         {
-            movement.x -= Speed;
+            _direction -= 1.0f;
         }
-
-        if (Input.GetKey(RightDirection))
+        if (Input.GetKey(_rightDirection))
         {
-            movement.x += Speed;
+            _direction += 1.0f;
         }
-        
-        if (transform.position.x <= BoundaryL)
-        {
-            movement.x = Mathf.Max(movement.x, 0);
-        }
-
-        if (transform.position.x >= BoundaryR)
-        {
-            movement.x = Mathf.Min(movement.x, 0);
-        }
-
-        movement *= Time.deltaTime;
-        
-        transform.position += movement;
     }
 }
